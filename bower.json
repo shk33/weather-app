@@ -3,6 +3,7 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4",
-    "moment-timezone": "^0.5.3"
+    "moment-timezone": "^0.5.3",
+    "suncalc": "^1.7.0"
   }
 }
