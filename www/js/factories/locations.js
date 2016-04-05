@@ -1,11 +1,12 @@
 angular.module('App')
 .factory('Locations', function ($ionicPopup) {
+
+  function store () {
+    localStorage.setItem('locations', angular.toJson(Locations.data));
+  }
+
   var Locations = {
-    data: [{
-      city: 'Chicago, IL, USA',
-      lat: 41.8781136,
-      lng: -87.6297982
-    }],
+    data: [],
     getIndex: function (item) {
       var index = -1;
       angular.forEach(Locations.data, function (location, i) {
@@ -32,6 +33,7 @@ angular.module('App')
           title: 'Location saved'
         });
       }
+      store();
     },
     primary: function (item) {
       var index = Locations.getIndex(item);
@@ -41,7 +43,19 @@ angular.module('App')
       } else {
         Locations.data.unshift(item);
       }
+      store();
     }
   };
+
+  /*When app starts, tries to
+  load data from localStorage
+  or else sets a blank array*/
+  try {
+    var items = angular.fromJson(localStorage.getItem('locations')) || [];
+    Locations.data = items;
+  } catch (e) {
+    Locations.data = [];
+  }
+
   return Locations;
 });
