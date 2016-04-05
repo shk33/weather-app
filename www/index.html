@@ -14,6 +14,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="lib/moment/moment.js"></script>
     <script src="lib/moment-timezone/builds/moment-timezone-with-data.js"></script>
     <script src="lib/suncalc/suncalc.js"></script>
@@ -34,8 +35,7 @@
     <!-- Filters -->
     <script src="js/filters/filters.js"></script>
 
-  
-<script src="lib/ngCordova/dist/ng-cordova.js"></script></head>
+  </head>
   <body ng-app="App">
     <ion-side-menus>
 
@@ -68,7 +68,7 @@
             </ion-item>
             <ion-item class="item-divider">Favorites</ion-item>
             <ion-item class="item-icon-left" ui-sref="weather({city: location.city,lat: location.lat, lng: location.lng})" menu-close="" ng-repeat="location in locations">
-              <span class="icon ion-ios-location"></span> 
+              <span class="icon" ng-class="getIcon(location.current)"></span> 
               {{location.city}}
             </ion-item>
           </ion-list>

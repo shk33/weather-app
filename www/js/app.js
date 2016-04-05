@@ -34,3 +34,23 @@ angular.module('App', ['ionic','ngCordova'])
     }
   });
 })
+
+.run(function ($cordovaGeolocation, $http, $state, Locations) {
+  $cordovaGeolocation.getCurrentPosition()
+  .then(function (data) {
+    $http.get('https://maps.googleapis.com/maps/api/geocode/json', 
+      {params: {latlng: data.coords.latitude + ',' + data.coords.longitude}})
+    .success(function (response) {
+        var location = {
+          lat: data.coords.latitude,
+          lng: data.coords.longitude,
+          city: response.results[0].formatted_address,
+          current: true
+        };
+
+        Locations.data.unshift(location);
+        $state.go('weather', location);
+        
+      });
+    });
+})
